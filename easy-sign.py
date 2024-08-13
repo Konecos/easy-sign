@@ -18,11 +18,11 @@ def generate_ca_certificate(args):
 
     # Build CA subject
     ca_subject = x509.Name([
-        x509.NameAttribute(NameOID.COUNTRY_NAME, args.country or u"US"),
-        x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, args.state or u"California"),
-        x509.NameAttribute(NameOID.LOCALITY_NAME, args.locality or u"San Francisco"),
-        x509.NameAttribute(NameOID.ORGANIZATION_NAME, args.organization or u"Example Company"),
-        x509.NameAttribute(NameOID.COMMON_NAME, args.common_name or u"My CA"),
+        x509.NameAttribute(NameOID.COUNTRY_NAME, args.country),
+        x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, args.state),
+        x509.NameAttribute(NameOID.LOCALITY_NAME, args.locality),
+        x509.NameAttribute(NameOID.ORGANIZATION_NAME, args.organization),
+        x509.NameAttribute(NameOID.COMMON_NAME, args.common_name),
     ])
 
     # Create CA certificate
@@ -84,10 +84,10 @@ def generate_certificate(args):
 
     # Build certificate subject
     subject = x509.Name([
-        x509.NameAttribute(NameOID.COUNTRY_NAME, args.country or u"US"),
-        x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, args.state or u"California"),
-        x509.NameAttribute(NameOID.LOCALITY_NAME, args.locality or u"San Francisco"),
-        x509.NameAttribute(NameOID.ORGANIZATION_NAME, args.organization or u"Example Company"),
+        x509.NameAttribute(NameOID.COUNTRY_NAME, args.country),
+        x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, args.state),
+        x509.NameAttribute(NameOID.LOCALITY_NAME, args.locality),
+        x509.NameAttribute(NameOID.ORGANIZATION_NAME, args.organization),
         x509.NameAttribute(NameOID.COMMON_NAME, args.domain),
     ])
 
@@ -139,20 +139,20 @@ def main():
     ca_parser = subparsers.add_parser("ca", help="Generate a self-signed CA certificate")
     ca_parser.add_argument("--filename", required=True, help="Output filename prefix")
     ca_parser.add_argument("--password", required=True, help="Password for the CA private key")
-    ca_parser.add_argument("--country", help="Country Name (C)")
-    ca_parser.add_argument("--state", help="State or Province Name (ST)")
-    ca_parser.add_argument("--locality", help="Locality Name (L)")
-    ca_parser.add_argument("--organization", help="Organization Name (O)")
-    ca_parser.add_argument("--common-name", help="Common Name (CN) for CA")
+    ca_parser.add_argument("--country", default="US", help="Country Name (C)")
+    ca_parser.add_argument("--state", default="California", help="State or Province Name (ST)")
+    ca_parser.add_argument("--locality", default="San Francisco", help="Locality Name (L)")
+    ca_parser.add_argument("--organization", default="Example Company", help="Organization Name (O)")
+    ca_parser.add_argument("--common-name", default="My CA", help="Common Name (CN) for CA")
 
     cert_parser = subparsers.add_parser("cert", help="Generate a certificate signed by a CA")
     cert_parser.add_argument("--domain", required=True, help="Domain name for the certificate")
     cert_parser.add_argument("--filename", required=True, help="Output filename prefix")
     cert_parser.add_argument("--password", required=True, help="Password for the private key")
-    cert_parser.add_argument("--country", help="Country Name (C)")
-    cert_parser.add_argument("--state", help="State or Province Name (ST)")
-    cert_parser.add_argument("--locality", help="Locality Name (L)")
-    cert_parser.add_argument("--organization", help="Organization Name (O)")
+    cert_parser.add_argument("--country", default="US", help="Country Name (C)")
+    cert_parser.add_argument("--state", default="California", help="State or Province Name (ST)")
+    cert_parser.add_argument("--locality", default="San Francisco", help="Locality Name (L)")
+    cert_parser.add_argument("--organization", default="Example Company", help="Organization Name (O)")
     cert_parser.add_argument("--ca-key", required=True, help="CA private key file")
     cert_parser.add_argument("--ca-cert", required=True, help="CA certificate file")
     cert_parser.add_argument("--ca-password", required=True, help="Password for the CA private key")
